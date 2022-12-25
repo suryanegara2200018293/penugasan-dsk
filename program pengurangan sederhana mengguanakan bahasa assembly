@@ -1,0 +1,38 @@
+.model small
+.code
+org 100h
+start : jmp input
+nilai1 db 'masukkan A = ','$'
+nilai2 db 13,10, 'masukkan B = ','$'
+hasil db 13, 10, 'A - B = ','$'
+
+input:
+    mov ah,09h
+    mov dx,offset nilai1
+    
+    int 21h
+    mov ah,01h
+    int 21h
+    
+    mov bl,al
+    sub bl,30h
+    mov ah,09h
+    mov dx,offset nilai2
+    int 21h
+    
+    mov ah,01h
+    int 21h
+    sub al,30h
+    sub bl,al
+tampil:
+    mov ah,09h
+    mov dx,offset hasil
+    int 21h
+    mov ah,02h
+    mov dl,bl
+    add dl,30h
+    int 21h
+akhir :
+    int 20h
+    end start
+    
